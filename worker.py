@@ -8,7 +8,7 @@ port = 57689
 topic = "sensor/datos"  # Asume que este es el topic al que te suscribes
 
 # URL de la API (ajusta la URL según tu entorno de desarrollo)
-url = "http://127.0.0.1:8000/api/recibir-json/"
+url = "https://viz1-production.up.railway.app/api/recibir-json/"
 
 # Función para enviar los datos a la API Django
 def enviar_datos_api(datos):
@@ -41,23 +41,29 @@ def on_connect(client, userdata, flags, rc):
     # Suscribirse al topic después de la conexión
     client.subscribe(topic)
 
-# Crear un cliente MQTT
-client = mqtt.Client()
+# Función principal para configurar el cliente MQTT y mantener la conexión
+def main():
+    # Crear un cliente MQTT
+    client = mqtt.Client()
 
-# Configurar las funciones de callback
-client.on_connect = on_connect
-client.on_message = on_message
+    # Configurar las funciones de callback
+    client.on_connect = on_connect
+    client.on_message = on_message
 
-# Conectar al broker MQTT
-client.connect(broker, port, 60)
+    # Conectar al broker MQTT
+    client.connect(broker, port, 60)
 
-# Bucle para escuchar los mensajes
-client.loop_start()
+    # Bucle para escuchar los mensajes
+    client.loop_start()
 
-# Mantener el script corriendo
-try:
-    while True:
-        pass
-except KeyboardInterrupt:
-    print("Conexión cerrada")
-    client.loop_stop()
+    # Mantener el script corriendo
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        print("Conexión cerrada")
+        client.loop_stop()
+
+# Ejecutar el script solo si es el archivo principal
+if __name__ == "__main__":
+    main()
