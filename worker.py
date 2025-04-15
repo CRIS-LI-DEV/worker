@@ -8,7 +8,7 @@ port = 57689
 topic = "sensor/datos"  # Asume que este es el topic al que te suscribes
 
 # URL de la API (ajusta la URL según tu entorno de desarrollo)
-url = "https://viz1-production.up.railway.app/api/recibir-json/"
+url = "https://viz1-production.up.railway.app/br-in/"
 
 # Función para enviar los datos a la API Django
 def enviar_datos_api(datos):
